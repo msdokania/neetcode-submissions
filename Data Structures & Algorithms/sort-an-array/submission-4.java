@@ -1,0 +1,82 @@
+class Solution {
+    public int[] sortArray(int[] nums) {
+        // insertionSort(nums);
+        // selectionSort(nums);
+        // bubbleSort(nums);
+        quickSort(nums, 0, nums.length-1);
+        // mergeSort(nums);
+        // heapSort(nums);
+        return nums;
+    }
+
+    public void insertionSort(int[] nums) {
+        int n = nums.length;
+        for(int i=0; i<n; i++) {
+            int key = nums[i];
+            int j = i-1;
+            while(j>=0 && nums[j]>key) {
+                nums[j+1] = nums[j];
+                j--;
+            }
+            nums[j+1] = key;
+        }
+    }
+
+// 1,9,10,1,1,2,3,1
+    public void selectionSort(int[] nums) {
+        int n = nums.length;
+        for(int i=0; i<n; i++) {
+            int idx = 0;
+            int min = Integer.MAX_VALUE;
+            for(int j=i; j<n; j++) {
+                if(nums[j]<min) {
+                    idx = j;
+                    min = nums[j];
+                }
+            }
+            if(min != Integer.MAX_VALUE)
+                swap(nums, i, idx);
+        }
+    }
+
+    public void bubbleSort(int[] nums) {
+        int n = nums.length;
+        for(int i=0; i<n; i++) {
+            for(int j=n-1; j>0; j--) {
+                if(nums[j]<nums[j-1])
+                    swap(nums, j, j-1);
+            }
+        }
+    }
+
+    public void quickSort(int[] nums, int l, int r) {
+        if(l>=r) return;
+        int pivIdx = partition(nums, l, r);
+        quickSort(nums, l, pivIdx-1);
+        quickSort(nums, pivIdx+1, r);
+    }
+    public int partition(int[] nums, int l, int r) {
+        int piv = nums[r];
+        int start = l, pivIdx=r-1;
+        while(start<=pivIdx) {
+            if(nums[start] > piv) {
+                swap(nums, start, pivIdx);
+                pivIdx--;
+            }
+            else {
+                start++;
+            }
+        }
+        swap(nums, start, r);
+        return start;
+    }
+
+    public void swap(int[] nums, int x, int y) {
+        int tmp = nums[x];
+        nums[x] = nums[y];
+        nums[y] = tmp;
+    }
+}
+
+
+
